@@ -59,7 +59,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=alway
 zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --icons=always --color=always -a $realpath'
 zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always --theme=base16 $realpath'
 zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
-zstyle ':fzf-tab:*' accept-line enter
+zstyle ':fzf-tab:*' fzf-bindings 'enter:accept'
+# zstyle ':fzf-tab:*' accept-line enter
 
 #  ┬ ┬┌─┐┬┌┬┐┬┌┐┌┌─┐  ┌┬┐┌─┐┌┬┐┌─┐
 #  │││├─┤│ │ │││││ ┬   │││ │ │ └─┐
@@ -160,3 +161,68 @@ alias ll='eza --icons=always --color=always -la'
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴
 $HOME/.local/bin/colorscript -r
 #disable-fzf-tab
+
+# (Calvin S ascii art style)
+# ╔═╗╔═╗╔╦╗╦ ╦
+# ╠═╝╠═╣ ║ ╠═╣
+# ╩  ╩ ╩ ╩ ╩ ╩
+
+# supply a file as param to this function or a path you want to add 
+append_path() {
+  if [ -z "$1" ]; then
+    echo "Usage: append_path /path/to/dir_or_file"
+    return 1
+  fi
+
+  if [ -f "$1" ]; then
+    while IFS= read -r line; do
+      [[ -z "$line" ]] && continue
+      case ":$PATH:" in
+        *":$line:"*) ;;  # already in PATH
+        *) export PATH="$PATH:$line" ;;
+      esac
+    done < "$1"
+  else
+    case ":$PATH:" in
+      *":$1:"*) ;;  # already in PATH
+      *) export PATH="$PATH:$1" ;;
+    esac
+  fi
+}
+
+if [ ! -d "~/.shell" ]; then
+  mkdir -p ~/.shell
+fi
+
+if [ -f "~/.shell/path" ]; then
+  append_path "~/.shell/path"
+fi
+
+if [ -f "~/.shell/custom_script" ]; then
+  source ~/.shell/custom_script
+fi
+
+if command -v nvm >/dev/null 2>&1; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+# pnpm
+if command -v pnpm >/dev/null 2>&1; then
+  export PNPM_HOME="/home/nabiel/.local/share/pnpm"
+  case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+  esac
+fi
+# pnpm end
+
+source /etc/profile.d/google-cloud-cli.sh
+source /opt/google-cloud-cli/completion.zsh.inc
+
+source /home/nabiel/.daytona.completion_script.zsh
+source /home/nabiel/.warp.completions.zsh
+
+eval "$(phpenv init -)"
+eval "$(phpenv init -)"

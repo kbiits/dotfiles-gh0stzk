@@ -118,6 +118,9 @@ source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+if [ -f "~/.local/share/zsh/plugins/git.plugin.zsh" ]; then
+  source ~/.local/share/zsh/plugins/git.plugin.zsh
+fi
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -224,5 +227,7 @@ source /opt/google-cloud-cli/completion.zsh.inc
 source /home/nabiel/.daytona.completion_script.zsh
 source /home/nabiel/.warp.completions.zsh
 
-eval "$(phpenv init -)"
-eval "$(phpenv init -)"
+if command -v phpenv >/dev/null 2>&1; then
+  eval "$(phpenv init -)"
+  eval "$(phpenv init -)"
+fi

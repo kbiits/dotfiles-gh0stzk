@@ -221,12 +221,6 @@ if command -v pnpm >/dev/null 2>&1; then
 fi
 # pnpm end
 
-source /etc/profile.d/google-cloud-cli.sh
-source /opt/google-cloud-cli/completion.zsh.inc
-
-source /home/nabiel/.daytona.completion_script.zsh
-source /home/nabiel/.warp.completions.zsh
-
 if command -v phpenv >/dev/null 2>&1; then
   eval "$(phpenv init -)"
   eval "$(phpenv init -)"

@@ -118,9 +118,6 @@ source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-if [ -f "~/.local/share/zsh/plugins/git.plugin.zsh" ]; then
-  source ~/.local/share/zsh/plugins/git.plugin.zsh
-fi
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -203,25 +200,4 @@ fi
 
 if [ -f "$HOME/.shell/custom_script" ]; then
   source ~/.shell/custom_script
-fi
-
-if command -v nvm >/dev/null 2>&1; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-# pnpm
-if command -v pnpm >/dev/null 2>&1; then
-  export PNPM_HOME="/home/nabiel/.local/share/pnpm"
-  case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-  esac
-fi
-# pnpm end
-
-if command -v phpenv >/dev/null 2>&1; then
-  eval "$(phpenv init -)"
-  eval "$(phpenv init -)"
 fi

@@ -193,15 +193,15 @@ append_path() {
   fi
 }
 
-if [ ! -d "~/.shell" ]; then
+if [ ! -d "$HOME/.shell" ]; then
   mkdir -p ~/.shell
 fi
 
-if [ -f "~/.shell/path" ]; then
+if [ -f "$HOME/.shell/path" ]; then
   append_path "~/.shell/path"
 fi
 
-if [ -f "~/.shell/custom_script" ]; then
+if [ -f "$HOME/.shell/custom_script" ]; then
   source ~/.shell/custom_script
 fi
 
